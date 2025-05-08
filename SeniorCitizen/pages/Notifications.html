@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reminders</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --base-font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-size: var(--base-font-size);
+      background-color: #f4f4f4;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #002366;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .home-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .controls {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .lang-btn, .font-btn {
+      margin-left: 5px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: white;
+      color: #002366;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      padding-top: 120px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      width: 600px;
+      height: 400px;
+      resize: none;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: var(--base-font-size);
+      overflow-y: auto;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+
+    button.btn-primary {
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Header -->
+  <header class="header">
+    <div class="home-icon" onclick="goHome()">🏠</div>
+    <div class="logo" id="logo-text"><i>❀ Oldie2Genz</i></div>
+    <div class="controls">
+      <div>
+        <span id="lang-label">Language:</span>
+        <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+        <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+        <button class="lang-btn" onclick="changeLanguage('te')">తెలుగు</button>
+      </div>
+      <div>
+        <span id="font-label">Font:</span>
+        <button class="font-btn" onclick="adjustFontSize(1)">+</button>
+        <button class="font-btn" onclick="adjustFontSize(-1)">-</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- 🔔 Notifications Button with ID -->
+    <button class="btn btn-primary mb-3" id="check-btn" onclick="fetchNotifications()">🔔 Check Notifications</button>
+
+    <!-- 📝 Notifications Display -->
+    <textarea id="notifications" placeholder="Notifications will appear here..."></textarea>
+  </div>
+
+  <script>
+    let fontSize = 16;
+
+    function goHome() {
+      window.location.href = "/SeniorCitizen/pages/Dashboard.html";
+    }
+
+    function adjustFontSize(change) {
+      fontSize += change;
+      if (fontSize < 10) fontSize = 10;
+      if (fontSize > 30) fontSize = 30;
+      document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+    }
+
+    const translations = {
+      en: {
+        "lang-label": "Language:",
+        "font-label": "Font:",
+        "textarea": "Notifications will appear here...",
+        "check-btn": "🔔 Check Notifications"
+      },
+      hi: {
+        "lang-label": "भाषा:",
+        "font-label": "फ़ॉन्ट:",
+        "textarea": "सूचनाएँ यहां दिखाई देंगी...",
+        "check-btn": "🔔 सूचनाएं जांचें"
+      },
+      te: {
+        "lang-label": "భాష:",
+        "font-label": "ఫాంట్:",
+        "textarea": "నోటిఫికేషన్లు ఇక్కడ కనిపిస్తాయి...",
+        "check-btn": "🔔 సూచనలను తనిఖీ చేయండి"
+      }
+    };
+
+    function changeLanguage(lang) {
+      localStorage.setItem('selectedLang', lang);
+      const elements = translations[lang];
+      document.getElementById("lang-label").textContent = elements["lang-label"];
+      document.getElementById("font-label").textContent = elements["font-label"];
+      document.getElementById("notifications").placeholder = elements["textarea"];
+      document.getElementById("check-btn").textContent = elements["check-btn"];
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('selectedLang') || 'en';
+      changeLanguage(savedLang);
+    });
+
+    function fetchNotifications() {
+      const now = new Date();
+      const timeStr = now.toTimeString().slice(0, 5); // "HH:mm"
+
+      const formData = new URLSearchParams();
+      formData.append("deviceTime", timeStr);
+
+      fetch("/SeniorCitizen/NotificationServlet", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: formData.toString()
+      })
+      .then(res => res.text())
+      .then(data => {
+        const textarea = document.getElementById("notifications");
+        textarea.value = "";
+
+        if (!data.trim()) {
+          textarea.value = "✅ No medicine reminders in the next hour.";
+          return;
+        }
+
+        const lines = data.trim().split("\n");
+        lines.forEach(line => {
+          const [name, time, dosage, label] = line.split("|");
+          const msg = `${name} — ${dosage} dose at ${time} (${label})\n`;
+          textarea.value += msg;
+        });
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        alert("❌ Failed to fetch reminders.");
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nearby Hospitals with Google Search</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; }
+    .heading {
+      font-weight: bold;
+      text-align: center;
+      font-size: 24px;
+      margin: 10px 0;
+    }
+    .container {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <p class="heading">Hospitals Around You</p>
+        <div id="map"></div>
+    </div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <script>
+    let userLat, userLon;
+    let map = L.map('map').setView([20.5937, 78.9629], 5); // Default to India
+
+    // Load map tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Get user's location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        userLat = position.coords.latitude;
+        userLon = position.coords.longitude;
+
+        map.setView([userLat, userLon], 13);
+
+        const userMarker = L.marker([userLat, userLon]).addTo(map)
+          .bindPopup("You are here")
+          .openPopup();
+
+        fetchHospitals(userLat, userLon);
+      }, () => {
+        alert("Location access denied.");
+      });
+    } else {
+      alert("Geolocation not supported.");
+    }
+
+    function fetchHospitals(lat, lon) {
+      const query = `
+        [out:json];
+        (
+          node["amenity"="hospital"](around:5000, ${lat}, ${lon});
+          way["amenity"="hospital"](around:5000, ${lat}, ${lon});
+          relation["amenity"="hospital"](around:5000, ${lat}, ${lon});
+        );
+        out center;
+      `;
+
+      fetch('https://overpass-api.de/api/interpreter', {
+        method: 'POST',
+        body: `data=${encodeURIComponent(query)}`,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.elements.length === 0) {
+          alert("No hospitals found nearby.");
+          return;
+        }
+
+        data.elements.forEach(hospital => {
+          const hospLat = hospital.lat || (hospital.center && hospital.center.lat);
+          const hospLon = hospital.lon || (hospital.center && hospital.center.lon);
+          const name = hospital.tags.name || "Unnamed Hospital";
+
+          // Create a marker for the hospital
+          if (hospLat && hospLon) {
+            const marker = L.marker([hospLat, hospLon]).addTo(map);
+
+            // Google search link for the hospital
+            const googleSearchLink = `https://www.google.com/search?q=${encodeURIComponent(name + " hospital")}`;
+
+            marker.bindPopup(`
+              <strong>${name}</strong><br/>
+              <a href="${googleSearchLink}" target="_blank">Search on Google</a>
+            `);
+          }
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching hospitals:", err);
+      });
+    }
+  </script>
+</body>
+</html>
+
+

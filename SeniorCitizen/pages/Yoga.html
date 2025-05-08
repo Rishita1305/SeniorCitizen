@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yoga</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="home-icon" onclick="goHome()">🏠</div>
+    <div class="logo" id="logo-text"><i>❀ Oldie2Genz</i></div>
+    <div class="controls">
+      <div>
+        <span id="lang-label">Language:</span>
+        <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+        <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+        <button class="lang-btn" onclick="changeLanguage('te')">తెలుగు</button>
+      </div>
+      <div>
+        <span id="font-label">Font:</span>
+        <button class="font-btn" onclick="adjustFontSize(2)">A+</button>
+        <button class="font-btn" onclick="adjustFontSize(-2)">A-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-buttons tutorial-page">
+    <h2 class="tutorial-title" id="tutorial-title">How to Practice Yoga</h2>
+    <div class="tutorial-links">
+      <a href="https://www.youtube.com/results?search_query=yoga+for+beginners" target="_blank">YouTube Yoga Tutorials</a>
+      <a href="https://www.yogajournal.com/" target="_blank">Yoga Journal</a>
+      <a href="https://www.artofliving.org/in-en/yoga" target="_blank">Art of Living Yoga</a>
+      <a href="https://www.sivananda.org/" target="_blank">Sivananda Yoga</a>
+      <a href="https://www.yogawithadriene.com/" target="_blank">Yoga with Adriene</a>
+    </div>
+  </main>
+
+  <script>
+    let currentFontSize = 16; // Start with a fixed value
+
+    const translations = {
+      en: {
+        "title": "How to Practice Yoga",
+        "langLabel": "Language:",
+        "fontLabel": "Font:",
+        "youtubeLink": "YouTube Yoga Tutorials",
+        "yogaJournal": "Yoga Journal",
+        "artOfLiving": "Art of Living Yoga",
+        "sivananda": "Sivananda Yoga",
+        "adriene": "Yoga with Adriene"
+      },
+      hi: {
+        "title": "योग का अभ्यास कैसे करें",
+        "langLabel": "भाषा:",
+        "fontLabel": "फ़ॉन्ट:",
+        "youtubeLink": "योग ट्यूटोरियल",
+        "yogaJournal": "योग जर्नल",
+        "artOfLiving": "आर्ट ऑफ लिविंग योग",
+        "sivananda": "शिवानंद योग",
+        "adriene": "एड्रीन के साथ योग"
+      },
+      te: {
+        "title": "యోగాను ఎలా అభ్యాసించాలి",
+        "langLabel": "భాష:",
+        "fontLabel": "ఫాంట్:",
+        "youtubeLink": "యోగా ట్యుటోరియల్స్",
+        "yogaJournal": "యోగా జర్నల్",
+        "artOfLiving": "ఆర్ట్ ఆఫ్ లివింగ్ యోగా",
+        "sivananda": "శివానంద యోగా",
+        "adriene": "ఆడ్రీన్‌తో యోగా"
+      }
+    };
+
+    function goHome() {
+      window.location.href = 'Entertainment.html';
+    }
+
+    function adjustFontSize(change) {
+      currentFontSize += change;
+
+      // Prevent font size from becoming too small or too large
+      if (currentFontSize < 12) currentFontSize = 12;
+      if (currentFontSize > 30) currentFontSize = 30;
+
+      // Apply the new font size to the body and other elements
+      document.body.style.fontSize = currentFontSize + "px";
+
+      // Apply the font size to specific elements
+      document.querySelectorAll('a, button, span, h2').forEach(element => {
+        element.style.fontSize = currentFontSize + 'px';
+      });
+    }
+
+    function changeLanguage(lang) {
+        localStorage.setItem('selectedLang', lang);
+      const elements = {
+        'tutorial-title': translations[lang].title,
+        'lang-label': translations[lang].langLabel,
+        'font-label': translations[lang].fontLabel
+      };
+
+      for (const [id, text] of Object.entries(elements)) {
+        const element = document.getElementById(id);
+        if (element) {
+          element.textContent = text;
+        }
+      }
+
+      const links = document.querySelectorAll('.tutorial-links a');
+      links[0].textContent = translations[lang].youtubeLink;
+      links[1].textContent = translations[lang].yogaJournal;
+      links[2].textContent = translations[lang].artOfLiving;
+      links[3].textContent = translations[lang].sivananda;
+      links[4].textContent = translations[lang].adriene;
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('selectedLang') || 'en';
+            changeLanguage(savedLang);
+        });
+  </script>
+</body>
+
+</html>

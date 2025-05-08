@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<style>
+:root {
+    --base-font-size: 18px;
+    --primary-color: #1E3A8A;
+    --secondary-color: #f1f3f5;
+    --accent-color: #0056b3;
+    --button-hover-color: #003f7f;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    text-align: center;
+    font-size: var(--base-font-size);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 100px 0 0 0;
+}
+
+
+/* Controls in Header */
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.controls button {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Language buttons */
+.controls .lang-btn {
+    background: #f8f9fa;
+    color: #1E3A8A;
+}
+
+.controls .lang-btn:hover {
+    background: #0056b3;
+    color: white;
+}
+
+/* Font Size buttons (Yellow) */
+.controls .font-btn {
+    background: #ffd700;
+    color: black;
+}
+
+.controls .font-btn:hover {
+    background: #ffd700;
+}
+
+.dashboard-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: 50px auto;
+}
+
+.dashboard-buttons button {
+    flex: 1 1 calc(30% - 20px); /* 3 buttons per row */
+    min-width: 250px;
+    max-width: 300px;
+    background: linear-gradient(135deg, var(--primary-color), #15306d);
+    color: white;
+    border: none;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    min-height: 120px;
+}
+
+/* Special style to make "Nearby Hospitals" button centered */
+#hospitals-btn {
+    flex: 0 1 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.dashboard-buttons button:hover {
+    background: linear-gradient(135deg, var(--accent-color), #002f5f);
+}
+
+/* Responsive: 2 buttons per row */
+@media (max-width: 768px) {
+    .dashboard-buttons button {
+        flex: 1 1 calc(45% - 20px);
+    }
+}
+
+/* Responsive: 1 button per row */
+@media (max-width: 500px) {
+    .dashboard-buttons button {
+        flex: 1 1 100%;
+    }
+}
+
+
+</style>
+
+<body>
+  <header class="header">
+    <div class="home-icon" onclick="goHome()">LogOut</div>
+    <div class="logo" id="logo-text"><i>❀ Oldie2Genz</i></div>
+    <div class="controls">
+      <div>
+        <span id="lang-label">Language:</span>
+        <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+        <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+        <button class="lang-btn" onclick="changeLanguage('te')">తెలుగు</button>
+      </div>
+      <div>
+        <span id="font-label">Font:</span>
+        <button class="font-btn" onclick="adjustFontSize(1)">+</button>
+        <button class="font-btn" onclick="adjustFontSize(-1)">-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-buttons">
+    <button id="tutorials-btn" onclick="openPage('/SeniorCitizen/pages/Tutorials.html')">📚 Tutorials</button>
+    <button id="reminders-btn" onclick="openPage('/SeniorCitizen/pages/Remainders.html')">⏰ Reminders</button>
+    <button id="notifications-btn" onclick="openPage('/SeniorCitizen/pages/Notifications.html')">🔔 Notifications</button>
+    <button id="entertainment-btn" onclick="openPage('/SeniorCitizen/pages/Entertainment.html')">🎬 Entertainment</button>
+    <button id="govt-btn" onclick="openPage('/SeniorCitizen/pages/govtservices.html')">🏛️ Govt. Services</button>
+    <button id="helpline-btn" onclick="openPage('/SeniorCitizen/pages/help_line.html')">📞 Help Line</button>
+    <button id="hospitals-btn" onclick="openPage('/SeniorCitizen/pages/Nearbyhospitals.html')" >🏥 Nearby Hospitals</button>
+  </main>
+  
+  <script>
+    let fontSize = 18;
+
+    function goHome() {
+  const confirmLogout = confirm("Are you sure you want to log out?");
+  if (confirmLogout) {
+    window.location.href = '/SeniorCitizen/pages/Firstpage.html';
+  }
+}
+
+
+
+    function openPage(page) {
+      window.location.href = page;
+    }
+
+    function adjustFontSize(change) {
+  fontSize += change; // Increase or decrease font size based on the button clicked
+  
+  // Ensure that the font size does not go below a reasonable size
+  if (fontSize < 12) {
+    fontSize = 12;  // Minimum font size limit
+  }
+  
+  document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+  document.querySelectorAll('button').forEach(btn => {
+    btn.style.fontSize = fontSize + 'px';
+  });
+}
+
+    function changeLanguage(lang) {
+      localStorage.setItem('selectedLang', lang);
+
+      const translations = {
+  en: {
+    "lang-label": "Language:",
+    "font-label": "Font:",
+    "tutorials-btn": "Tutorials",
+    "reminders-btn": "Reminders",
+    "notifications-btn": "Notifications",
+    "entertainment-btn": "Entertainment",
+    "govt-btn": "Govt. Services",
+    "helpline-btn": "Help Line",
+    "hospitals-btn": "Nearby Hospitals"
+  },
+  hi: {
+    "lang-label": "भाषा:",
+    "font-label": "फ़ॉन्ट:",
+    "tutorials-btn": "ट्यूटोरियल",
+    "reminders-btn": "अनुस्मारक",
+    "notifications-btn": "सूचनाएं",
+    "entertainment-btn": "मनोरंजन",
+    "govt-btn": "सरकारी सेवाएं",
+    "helpline-btn": "सहायता केंद्र",
+    "hospitals-btn": "नज़दीकी अस्पताल"
+  },
+  te: {
+    "lang-label": "భాష:",
+    "font-label": "ఫాంట్:",
+    "tutorials-btn": "బోధనలు",
+    "reminders-btn": "గుర్తుంచుకోలు",
+    "notifications-btn": "నోటిఫికేషన్లు",
+    "entertainment-btn": "వినోదం",
+    "govt-btn": "ప్రభుత్వ సేవలు",
+    "helpline-btn": "హెల్ప్ లైన్",
+    "hospitals-btn": "సమీప ఆసుపత్రులు"
+  }
+};
+
+
+
+      
+      document.getElementById("lang-label").innerText = translations[lang]["lang-label"];
+      document.getElementById("font-label").innerText = translations[lang]["font-label"];
+
+      const buttons = [
+        "tutorials-btn", "reminders-btn", "notifications-btn",
+        "entertainment-btn", "govt-btn", "helpline-btn", "hospitals-btn"
+      ];
+
+      buttons.forEach(id => {
+        const btn = document.getElementById(id);
+        const emoji = btn.innerText.split(' ')[0]; // Extract emoji
+        btn.innerText = `${emoji} ${translations[lang][id]}`;
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('selectedLang') || 'en';
+      changeLanguage(savedLang);
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>CareTaker</display-name>
+
+  <servlet>
+    <description></description>
+
+    <servlet-name>HelloWorld</servlet-name>
+    <servlet-class>com.sc.HelloWorld</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HelloWorld</servlet-name>
+    <url-pattern>/hello</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <servlet>
+    <servlet-name>jdbcCon</servlet-name>
+    <servlet-class>com.sc.jdbcCon</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>jdbcCon</servlet-name>
+    <url-pattern>/tables</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+
+<welcome-file-list>
+<welcome-file>/pages/Firstpage.html</welcome-file>
+</welcome-file-list>  
+
+
+
+ 
+  <servlet>
+    <servlet-name>SignUpServlet</servlet-name>
+    <servlet-class>com.sc.SignUpServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SignUpServlet</servlet-name>
+    <url-pattern>/SignUpServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>LogInServlet</servlet-name>
+    <servlet-class>com.sc.LogInServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LogInServlet</servlet-name>
+    <url-pattern>/LogInServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+   <servlet>
+    <servlet-name>Dashboard</servlet-name>
+    <servlet-class>com.sc.Dashboard</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Dashboard</servlet-name>
+    <url-pattern>/Dashboard</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>MedicalRemainderServlet</servlet-name>
+    <servlet-class>com.sc.MedicalRemainderServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>MedicalRemainderServlet</servlet-name>
+    <url-pattern>/MedicalRemainderServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+   <servlet>
+    <servlet-name>DisplayMRServlet</servlet-name>
+    <servlet-class>com.sc.DisplayMRServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DisplayMRServlet</servlet-name>
+    <url-pattern>/DisplayMRServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+   <servlet>
+    <servlet-name>SignUpCaretakerServlet</servlet-name>
+    <servlet-class>com.sc.SignUpCaretakerServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SignUpCaretakerServlet</servlet-name>
+    <url-pattern>/SignUpCaretakerServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CareTakerLogin</servlet-name>
+    <servlet-class>com.sc.CareTakerLogin</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CareTakerLogin</servlet-name>
+    <url-pattern>/CareTakerLogin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>ScLogin</servlet-name>
+    <servlet-class>com.sc.ScLogin</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ScLogin</servlet-name>
+    <url-pattern>/ScLogin</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>NotificationServlet</servlet-name>
+    <servlet-class>your.package.name.NotificationServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>NotificationServlet</servlet-name>
+    <url-pattern>/NotificationServlet</url-pattern>
+</servlet-mapping>
+  
+  
+</web-app>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Jeevan Pramaan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        :root {
+            --base-font-size: 18px;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+            transition: font-size 0.3s ease;
+        }
+
+        /* Adjust the padding and margins relative to font size */
+        .controls > div {
+            display: inline-block;
+            margin-left: 1rem;
+        }
+
+        .lang-btn, .font-btn {
+            padding: 0.5rem 1rem;
+            margin-left: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            background-color: #fff;
+            color: #495057;
+            font-size: 1rem;
+        }
+
+        .lang-btn:hover, .font-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        .tutorial-page {
+            padding: 1.25rem;
+        }
+
+        .tutorial-links a {
+            display: block;
+            margin-top: 1rem;
+            font-size: 1.125rem;
+        }
+
+        /* Ensure cards also scale */
+        .card {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="home-icon" onclick="goHome()">🏠</div>
+    <div class="logo" id="logo-text"><i>❀ Oldie2Genz</i></div>
+    <div class="controls">
+        <div>
+            <span id="lang-label">Language:</span>
+            <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+            <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+            <button class="lang-btn" onclick="changeLanguage('te')">తెలుగు</button>
+        </div>
+        <div>
+            <span id="font-label">Font:</span>
+            <button class="font-btn" onclick="adjustFontSize(2)">+</button>
+            <button class="font-btn" onclick="adjustFontSize(-2)">-</button>
+        </div>
+    </div>
+</header>
+
+<main class="dashboard-buttons tutorial-page">
+    <h2 class="tutorial-title" id="tutorial-title">Jeevan Pramaan</h2>
+    <div class="tutorial-links">
+        <!-- First box - Video tutorial link -->
+        <a id="install-link" href="https://youtu.be/o2GtsRV9SJQ?si=ISVqV8T9moti-sS5" target="_blank">How to Use: Jeevan Pramaan</a>
+
+        <!-- Second box - Website link -->
+        <a id="guide-link" href="https://jeevanpramaan.gov.in/" target="_blank">Jeevan Pramaan Website</a>
+    </div>
+</main>
+
+<script>
+    let fontSize = 18;
+
+    const translations = {
+        en: {
+            "logo": "Jeevan Pramaan",
+            "lang-label": "Language:",
+            "font-label": "Font:",
+            "tutorial-title": "Jeevan Pramaan",
+            "install-link": "How to Use: Jeevan Pramaan",
+            "guide-link": "Jeevan Pramaan Website"
+        },
+        hi: {
+            "logo": "जीवन प्रमाण",
+            "lang-label": "भाषा:",
+            "font-label": "फ़ॉन्ट:",
+            "tutorial-title": "जीवन प्रमाण",
+            "install-link": "कैसे उपयोग करें: जीवन प्रमाण",
+            "guide-link": "जीवन प्रमाण वेबसाइट"
+        },
+        te: {
+            "logo": "జీవన్ ప్రమాణ్",
+            "lang-label": "భాష:",
+            "font-label": "ఫాంట్:",
+            "tutorial-title": "జీవన్ ప్రమాణ్",
+            "install-link": "ఉపయోగించడం ఎలా: Jeevan Pramaan",
+            "guide-link": "Jeevan Pramaan వెబ్సైట్"
+        }
+    };
+
+    function goHome() {
+        window.location.href = "/SeniorCitizen/pages/govtservices.html";
+    }
+
+    function changeLanguage(lang) {
+        localStorage.setItem('selectedLang', lang);
+        const t = translations[lang];
+        if (!t) return;
+        document.getElementById("logo-text").textContent = t["logo"];
+        document.getElementById("lang-label").textContent = t["lang-label"];
+        document.getElementById("font-label").textContent = t["font-label"];
+        document.getElementById("tutorial-title").textContent = t["tutorial-title"];
+        document.getElementById("install-link").textContent = t["install-link"];
+        document.getElementById("guide-link").textContent = t["guide-link"];
+    }
+
+    function adjustFontSize(change) {
+        fontSize += change;
+        if (fontSize < 10) fontSize = 10;
+        if (fontSize > 40) fontSize = 40;
+        document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('selectedLang') || 'en';
+        changeLanguage(savedLang);
+    });
+</script>
+
+</body>
+</html>
+

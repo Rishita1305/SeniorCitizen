@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Citizen Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Devanagari&family=Noto+Sans+Telugu&display=swap">
+    <style>
+    :root {
+        --base-font-size: 20px;
+    }
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-size: var(--base-font-size);
+        font-family: 'Noto Sans', sans-serif;
+    }
+    .header-container {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        padding: 20px;
+        background: rgba(30, 58, 138, 0.9);
+        color: white;
+        z-index: 10;
+    }
+    .logo {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .top-options, .font-options {
+        position: relative;
+        padding: 0px;
+    }
+    .top-options { 
+        top: 10px; 
+        text-align: left;
+    }
+    .font-options {
+        top: 10px; 
+        text-align: right;
+    }
+    .carousel-item img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+    }
+    .carousel-caption {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 10px;
+        bottom: 80px;
+    }
+    .auth-buttons {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+        position: relative; 
+        margin-top: 150px; 
+        text-align: center;
+    }
+    .auth-buttons button {
+        font-size: 30px;
+        padding: 15px;
+        margin: 10px;
+        width: 200px;
+    }
+    .container {
+        background-color: blue;
+        color: white;
+        padding: 20px;
+        border-radius: 0px;
+        text-align: center;
+    }
+    h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+    p {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+    </style>
+</head>
+<body>
+
+```
+<header class="header-container d-flex justify-content-between align-items-center px-4">
+    <div class="logo"><i>❀ Oldie2Genz</i></div>
+    <div class="d-flex align-items-center">
+        <div class="top-options me-3">
+            <span>Language: </span>
+            <button onclick="changeLanguage('en')" class="btn btn-light btn-sm">English</button>
+            <button onclick="changeLanguage('hi')" class="btn btn-light btn-sm">हिन्दी</button>
+            <button onclick="changeLanguage('te')" class="btn btn-light btn-sm">తెలుగు</button>
+        </div>
+        <div class="font-options">
+            <span>Font: </span>
+            <button onclick="adjustFontSize(1)" class="btn btn-warning btn-sm">+</button>
+            <button onclick="adjustFontSize(-1)" class="btn btn-warning btn-sm">-</button>
+        </div>
+    </div>
+</header>
+
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="images.jpeg" alt="Senior Citizens Gathering">
+            <div class="carousel-caption">
+                <h2 id="carousel-title">Welcome to the Senior Citizen Portal</h2>
+                <p id="carousel-text">Explore resources and services tailored for seniors.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="images-2.jpeg" alt="Community Support">
+            <div class="carousel-caption">
+                <h2 id="carousel-title-2">Stay Connected</h2>
+                <p id="carousel-text-2">Find support groups and social activities near you.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+
+<div class="auth-buttons">
+    <button id="signup-btn" onclick="openSignup()" class="btn btn-primary">Sign Up</button>
+    <button id="login-btn" onclick="openLogin()" class="btn btn-secondary">Log In</button>
+</div>
+
+<div class="container" style="background-color: rgba(30, 58, 138, 0.9); color: white; padding: 20px; border-radius: 10px;">
+    <h1 id="content-title">Welcome to the Senior Citizen Digital Hub!</h1>
+    <p id="content-text">
+        Your one-stop destination for essential services, reminders, and learning resources—all designed with seniors in mind! 
+        Easily access Jeevan Pramaan registration, set medicine and appointment reminders, and stay informed about important 
+        government updates. Explore simple, step-by-step tutorials on using social media, YouTube, and other Internet services 
+        to stay connected with loved ones. With an easy-to-use interface and helpful notifications, we make the digital world 
+        more accessible, empowering senior citizens to navigate online services with confidence and ease.
+    </p>
+</div>
+
+<script>
+    function openSignup() {
+        window.location.href = '/SeniorCitizen/pages/SignUpAsk.html';
+    }
+    function openLogin() {
+        window.location.href = '/SeniorCitizen/pages/AskLoginpage.html';
+    }
+
+    function adjustFontSize(amount) {
+        let currentSize = parseInt(getComputedStyle(document.body).fontSize);
+        let newSize = currentSize + amount;
+        document.documentElement.style.setProperty('--base-font-size', newSize + 'px');
+    }
+
+    function changeLanguage(lang) {
+        localStorage.setItem('selectedLang', lang); // 🔁 Store selected language
+        let textData = {
+            'en': {
+                'signup': "Sign Up",
+                'login': "Log In",
+                'carousel-title': "Welcome to the Senior Citizen Portal",
+                'carousel-text': "Explore resources and services tailored for seniors.",
+                'carousel-title-2': "Stay Connected",
+                'carousel-text-2': "Find support groups and social activities near you.",
+                'content-title': "Welcome to the Senior Citizen Digital Hub!",
+                'content-text': " Your one-stop destination for essential services, reminders, and learning resources—all designed with seniors in mind! Easily access Jeevan Pramaan registration, set medicine and appointment reminders, and stay informed about important government updates. Explore simple, step-by-step tutorials on using social media, YouTube, and other Internet services to stay connected with loved ones. With an easy-to-use interface and helpful notifications, we make the digital world more accessible, empowering senior citizens to navigate online services with confidence and ease."
+            },
+            'hi': {
+                'signup': "साइन अप करें",
+                'login': "लॉग इन करें",
+                'carousel-title': "वरिष्ठ नागरिक पोर्टल में आपका स्वागत है",
+                'carousel-text': "वरिष्ठ नागरिकों के लिए संसाधन और सेवाएँ खोजें।",
+                'carousel-title-2': "जुड़े रहें",
+                'carousel-text-2': "समर्थन समूह और सामाजिक गतिविधियाँ खोजें।",
+                'content-title': "वरिष्ठ नागरिक डिजिटल हब में आपका स्वागत है!",
+                'content-text': "आपकी सभी आवश्यक सेवाओं, अनुस्मारकों और सीखने के संसाधनों के लिए एक ही स्थान—जो वरिष्ठ नागरिकों के लिए विशेष रूप से डिज़ाइन किया गया है! आसानी से जीवन प्रमाण पंजीकरण करें, दवाओं और अपॉइंटमेंट के लिए अनुस्मारक सेट करें, और महत्वपूर्ण सरकारी अपडेट से अवगत रहें। सोशल मीडिया, यूट्यूब और अन्य इंटरनेट सेवाओं का उपयोग करने के लिए सरल, चरण-दर-चरण ट्यूटोरियल खोजें ताकि आप अपने प्रियजनों से जुड़े रह सकें। सरल उपयोगकर्ता इंटरफ़ेस और सहायक सूचनाओं के साथ, हम डिजिटल दुनिया को अधिक सुलभ बनाते हैं, जिससे वरिष्ठ नागरिक आत्मविश्वास और आसानी से ऑनलाइन सेवाओं को नेविगेट कर सकें।"
+            },
+            'te': {
+                'signup': "సైన్ అప్ చేయండి",
+                'login': "లాగిన్ చేయండి",
+                'carousel-title': "సీనియర్ సిటిజన్ పోర్టల్‌కు స్వాగతం",
+                'carousel-text': "వయోజనుల కోసం ప్రత్యేకంగా రూపుదిద్దిన వనరులను కనుగొనండి.",
+                'carousel-title-2': "కనెక్ట్‌గా ఉండండి",
+                'carousel-text-2': "మద్దతు గుంపులు మరియు సామాజిక కార్యకలాపాలను కనుగొనండి.",
+                'content-title': "సీనియర్ సిటిజన్ డిజిటల్ హబ్‌కు స్వాగతం!",
+                'content-text': "మీ ముఖ్యమైన సేవలు, గుర్తింపులు మరియు విద్యా వనరుల కోసం ఒకే ఒక స్థలం—పెద్దవారిని దృష్టిలో ఉంచుకొని రూపొందించబడింది! జీవన్ ప్రమాణ్ నమోదు సులభంగా చేయండి, మందుల మరియు అపాయింట్మెంట్ గుర్తింపులను సెట్ చేయండి, మరియు ముఖ్యమైన ప్రభుత్వ అప్డేట్‌ల గురించి సమాచారం పొందండి. సోషల్ మీడియా, యూట్యూబ్, మరియు ఇతర ఇంటర్నెట్ సేవలను ఉపయోగించేందుకు సరళమైన, దశలవారీ ట్యుటోరియల్స్‌ను అన్వేషించండి, తద్వారా మీ కుటుంబ సభ్యులతో అనుసంధానంగా ఉండవచ్చు. సులభమైన వినియోగదారు ఇంటర్‌ఫేస్ మరియు సహాయక నోటిఫికేషన్‌లతో, మేము డిజిటల్ ప్రపంచాన్ని మరింత ప్రాప్యతగలదిగా చేసి, వయోజనులు ఆత్మవిశ్వాసంతో మరియు సులభంగా ఆన్‌లైన్ సేవలను నావిగేట్ చేయగలిగేలా చేస్తాము."
+            }
+        };
+
+        document.getElementById('signup-btn').innerText = textData[lang]['signup'];
+        document.getElementById('login-btn').innerText = textData[lang]['login'];
+        document.getElementById('carousel-title').innerText = textData[lang]['carousel-title'];
+        document.getElementById('carousel-text').innerText = textData[lang]['carousel-text'];
+        document.getElementById('carousel-title-2').innerText = textData[lang]['carousel-title-2'];
+        document.getElementById('carousel-text-2').innerText = textData[lang]['carousel-text-2'];
+        document.getElementById('content-title').innerText = textData[lang]['content-title'];
+        document.getElementById('content-text').innerText = textData[lang]['content-text'];
+
+        let font = lang === 'hi' ? "'Noto Sans Devanagari', sans-serif" :
+                   lang === 'te' ? "'Noto Sans Telugu', sans-serif" :
+                   "'Noto Sans', sans-serif";
+        document.body.style.fontFamily = font;
+    }
+
+    // ✅ Load saved language on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('selectedLang') || 'en';
+        changeLanguage(savedLang);
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

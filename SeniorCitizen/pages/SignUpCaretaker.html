@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Caretaker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #1E3A8A;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left-section {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .signup-box {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            color: black;
+            width: 350px;
+            text-align: center;
+        }
+
+        .signup-box h2 {
+            color: #1E3A8A;
+            margin-bottom: 20px;
+        }
+
+        .signup-box input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .signup-box button {
+            background: #1E3A8A;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .signup-box button:hover {
+            background: #15306d;
+        }
+
+        .right-container {
+            width: 1000px;
+            height: 100vh;
+            background-color: #1E3A8A;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .right-container img {
+            max-width: 1000%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .header-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #15306d;
+        }
+
+        .options-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .left-section, .right-section {
+                width: 100%;
+            }
+
+            .right-section {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <div class="logo"><i>❀ Oldie2Genz</i></div>
+        <div class="options-container">
+            <span>Language:</span>
+            <button onclick="changeLanguage('en')" class="btn btn-light btn-sm">English</button>
+            <button onclick="changeLanguage('hi')" class="btn btn-light btn-sm">हिन्दी</button>
+            <button onclick="changeLanguage('te')" class="btn btn-light btn-sm">తెలుగు</button>
+            <span>Font:</span>
+            <button onclick="adjustFontSize(1)" class="btn btn-warning btn-sm">+</button>
+            <button onclick="adjustFontSize(-1)" class="btn btn-warning btn-sm">-</button>
+        </div>
+    </header>
+<form action="/SeniorCitizen/SignUpCaretakerServlet" method="get" >
+    <div class="container">
+        <div class="left-section">
+            <div class="signup-box">
+                <h2 id="title-text">Sign Up</h2>
+                <h5 id="caretaker-text" style="font-size: 25px;">Caretaker</h5>
+ 
+          
+               <input type="text" id="name" name="CT_name" placeholder="CT Name">
+<input type="tel" id="phone" name="CT_phone" placeholder="CT Phone No.">
+<input type="password" id="password" name="CT_password" placeholder="Create Password">
+
+                <button >Sign Up</button>
+              
+                <div class="signup-link">
+                    <span id="login-text">Already have an account?</span>
+                    <a href="CaretakerLogin.html" id="login-link">Login</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-container">
+            <img src="pic2.jpg" alt="Image">
+        </div>
+    </div>
+  </form>
+    <script>
+        function signup() {
+            let name = document.getElementById("name").value;
+            let phone = document.getElementById("phone").value;
+            let password = document.getElementById("password").value;
+
+            if (name === "" || phone === "" || password === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+			alert(name);
+			alert(phone);
+			alert(password);
+			alert("Sign Up Successful!"); 
+            
+            //window.location.href = "/SeniorCitizen/SignUpCaretakerServlet";
+        }
+
+        function adjustFontSize(amount) {
+            document.querySelectorAll("body, button, input").forEach(el => {
+                let currentSize = parseInt(window.getComputedStyle(el).fontSize);
+                el.style.fontSize = (currentSize + amount) + "px";
+            });
+        }
+
+        function changeLanguage(lang) {
+            localStorage.setItem('selectedLang', lang);
+            let translations = {
+                "en": {
+                    "title": "Sign Up",
+                    "caretaker": "Caretaker",
+                    "name": "CT Name",
+                    "phone": "CT Phone No.",
+                    "password": "Create Password",
+                    "login-text": "Already have an account?",
+                    "login-link": "Login"
+                },
+                "hi": {
+                    "title": "साइन अप करें",
+                    "caretaker": "संभालने वाला",
+                    "name": "नाम दर्ज करें",
+                    "phone": "फोन नंबर दर्ज करें",
+                    "password": "पासवर्ड बनाएं",
+                    "login-text": "पहले से खाता है?",
+                    "login-link": "लॉगिन करें"
+                },
+                "te": {
+                    "title": "సైన్ అప్",
+                    "caretaker": "కేర్‌టేకర్",
+                    "name": "పేరు నమోదు చేయండి",
+                    "phone": "ఫోన్ నంబర్ నమోదు చేయండి",
+                    "password": "పాస్‌వర్డ్ సృష్టించండి",
+                    "login-text": "ఇప్పటికే ఖాతా ఉందా?",
+                    "login-link": "లాగిన్ చేయండి"
+                }
+            };
+
+            document.getElementById("title-text").innerText = translations[lang].title;
+            document.getElementById("caretaker-text").innerText = translations[lang].caretaker;
+            document.getElementById("name").placeholder = translations[lang].name;
+            document.getElementById("phone").placeholder = translations[lang].phone;
+            document.getElementById("password").placeholder = translations[lang].password;
+            document.getElementById("login-text").innerText = translations[lang]["login-text"];
+            document.getElementById("login-link").innerText = translations[lang]["login-link"];
+
+            let font = lang === "hi" ? "'Noto Sans Devanagari', sans-serif" :
+                       lang === "te" ? "'Noto Sans Telugu', sans-serif" :
+                       "'Poppins', sans-serif";
+
+            document.documentElement.style.setProperty('--font-family', font);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('selectedLang') || 'en';
+            changeLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>

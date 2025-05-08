@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Games</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      height: 400px;
+      width: 280px;
+      padding: 30px 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card img {
+      width: 250px;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .card a.button {
+      display: inline-block;
+      margin-top: 100px;
+      padding: 12px 20px;
+      background-color: #1E3A8A;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 20px;
+    }
+
+    .card a.button:hover {
+      background-color: #0056b3;
+    }
+
+    .controls > div {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="home-icon" onclick="goHome()" style="cursor:pointer;">🏠</div>
+    <div class="logo" id="logo-text"><i>❀ Oldie2Genz</i></div>
+    <div class="controls">
+      <div>
+        <span id="lang-label">Language:</span>
+        <button class="lang-btn btn btn-outline-primary btn-sm" onclick="changeLanguage('en')">English</button>
+        <button class="lang-btn btn btn-outline-primary btn-sm" onclick="changeLanguage('hi')">हिन्दी</button>
+        <button class="lang-btn btn btn-outline-primary btn-sm" onclick="changeLanguage('te')">తెలుగు</button>
+      </div>
+      <div>
+        <span id="font-label">Font:</span>
+        <button class="font-btn btn btn-outline-secondary btn-sm" onclick="adjustFontSize(2)">+</button>
+        <button class="font-btn btn btn-outline-secondary btn-sm" onclick="adjustFontSize(-2)">-</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Snake and Ladder -->
+      <div class="card">
+        <a href="https://toytheater.com/snakes-and-ladders/" target="_blank">
+          <img src="snake_ladder.png" alt="Snake and Ladder">
+        </a>
+        <a href="https://toytheater.com/snakes-and-ladders/" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Card Games -->
+      <div class="card">
+        <a href="https://www.freesolitaire.com/" target="_blank">
+          <img src="card_game.jpg" alt="Card Games">
+        </a>
+        <a href="https://www.freesolitaire.com/" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Sudoku -->
+      <div class="card">
+        <a href="https://www.nytimes.com/puzzles/sudoku" target="_blank">
+          <img src="suduko.jpeg" alt="Sudoku">
+        </a>
+        <a href="https://www.nytimes.com/puzzles/sudoku" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Chess -->
+      <div class="card">
+        <a href="https://www.chess.com/play/online" target="_blank">
+          <img src="chess.jpg" alt="Chess">
+        </a>
+        <a href="https://www.chess.com/play/online" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Memory Game -->
+      <div class="card">
+        <a href="https://www.helpfulgames.com/subjects/brain-training/memory.html" target="_blank">
+          <img src="memory_game.jpg" alt="Memory Game">
+        </a>
+        <a href="https://www.helpfulgames.com/subjects/brain-training/memory.html" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Word Search -->
+      <div class="card">
+        <a href="https://api.razzlepuzzles.com/wordsearch" target="_blank">
+          <img src="word_search.png" alt="Word Search">
+        </a>
+        <a href="https://api.razzlepuzzles.com/wordsearch" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Jigsaw Puzzle -->
+      <div class="card">
+        <a href="https://puzzlezilla.com/" target="_blank">
+          <img src="jigsaw_puzzle.jpg" alt="Jigsaw Puzzle">
+        </a>
+        <a href="https://puzzlezilla.com/" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+
+      <!-- Ludo -->
+      <div class="card">
+        <a href="https://poki.com/en/g/ludo-multiplayer" target="_blank">
+          <img src="ludo.png" alt="Ludo">
+        </a>
+        <a href="https://poki.com/en/g/ludo-multiplayer" class="button" target="_blank">
+          <span class="play-now-text">Play Now</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let fontSize = parseInt(localStorage.getItem('fontSize')) || 18;
+
+    function goHome() {
+      window.location.href = "/SeniorCitizen/pages/Entertainment.html";
+    }
+
+    function adjustFontSize(change) {
+      fontSize += change;
+      if (fontSize < 10) fontSize = 10;
+      localStorage.setItem('fontSize', fontSize);
+      document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+
+      document.querySelectorAll('h2, a, span, button').forEach(el => {
+        el.style.fontSize = fontSize + 'px';
+      });
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('selectedLang', lang);
+
+      const translations = {
+        en: {
+          "lang-label": "Language:",
+          "font-label": "Font:",
+          "play-now": "Play Now"
+        },
+        hi: {
+          "lang-label": "भाषा:",
+          "font-label": "फ़ॉन्ट:",
+          "play-now": "अब खेलें"
+        },
+        te: {
+          "lang-label": "భాష:",
+          "font-label": "ఫాంట్:",
+          "play-now": "ఇప్పుడు ఆడండి"
+        }
+      };
+
+      const t = translations[lang];
+     
+      document.getElementById("lang-label").textContent = t["lang-label"];
+      document.getElementById("font-label").textContent = t["font-label"];
+
+      document.querySelectorAll('.play-now-text').forEach(el => {
+        el.textContent = t["play-now"];
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+      const savedLang = localStorage.getItem('selectedLang') || 'en';
+      changeLanguage(savedLang);
+      adjustFontSize(0);
+    });
+  </script>
+
+</body>
+</html>

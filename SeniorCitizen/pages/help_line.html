@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Helpline</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css"/>
+    <style>
+        :root {
+            --base-font-size: 18px;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+            transition: font-size 0.3s ease;
+        }
+
+        .controls > div {
+            display: inline-block;
+            margin-left: 15px;
+        }
+
+        .lang-btn, .font-btn {
+            padding: 5px 10px;
+            margin-left: 5px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #fff;
+            color: #495057;
+            font-size: 1rem;
+        }
+
+        .lang-btn:hover, .font-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        .contact-link {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-link:hover {
+            background-color: #e9ecef;
+            text-decoration: underline;
+            transform: scale(1.05);
+        }
+
+        .contact-link:active {
+            background-color: #e2e6ea;
+            transform: scale(0.98);
+        }
+
+        .helpline-page {
+            padding: 20px;
+        }
+
+        .help-section {
+            margin-top: 40px;
+        }
+
+        .help-section a {
+            font-size: 1.1rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .help-section a:hover {
+            text-decoration: underline;
+        }
+
+        .helpline-numbers {
+            margin-top: 30px;
+        }
+
+        .helpline-number {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .helpline-number span {
+            font-weight: bold;
+        }
+
+        .helpline-number a {
+            font-size: 1.2rem;
+            color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .helpline-number a:hover {
+            background-color: #e9ecef;
+            transform: scale(1.05);
+        }
+
+        .helpline-number a:active {
+            background-color: #e2e6ea;
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="home-icon" onclick="goHome()">🏠</div>
+    <div class="logo" id="logo-text">❀ Oldie2Genz</div>
+    <div class="controls">
+        <div>
+            <span id="lang-label">Language:</span>
+            <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+            <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+            <button class="lang-btn" onclick="changeLanguage('te')">తెలుగు</button>
+        </div>
+        <div>
+            <span id="font-label">Font:</span>
+            <button class="font-btn" onclick="adjustFontSize(2)">+</button>
+            <button class="font-btn" onclick="adjustFontSize(-2)">-</button>
+        </div>
+    </div>
+</header>
+
+<main class="helpline-page">
+    <h2 class="helpline-title" id="helpline-title">Helpline</h2>
+
+    <div class="helpline-numbers">
+        <h4 id="emergency-heading">Emergency Numbers</h4>
+        <div class="helpline-number">
+            <a href="tel:14567" id="senior-citizens-link">Senior Citizens Helpline: 14567</a>
+        </div>
+        <div class="helpline-number">
+            <a href="tel:112" id="national-emergency-link">National Emergency: 112</a>
+        </div>
+        <div class="helpline-number">
+            <a href="tel:100" id="police-link">Police: 100</a>
+        </div>
+        <div class="helpline-number">
+            <a href="tel:102" id="ambulance-link">Ambulance: 102</a>
+        </div>
+        <div class="helpline-number">
+            <a href="tel:101" id="fire-service-link">Fire Service: 101</a>
+        </div>
+    </div>
+
+    <div class="help-section">
+        <a href="https://help.helpline.com/faq" id="faq-link" target="_blank">FAQ</a>
+        <a href="https://help.helpline.com/contact" id="contact-link" target="_blank">Contact Support</a>
+    </div>
+</main>
+
+<script>
+    let fontSize = 18;
+
+    const translations = {
+        en: {
+            "lang-label": "Language:",
+            "font-label": "Font:",
+            "helpline-title": "Helpline",
+            "emergency-heading": "Emergency Numbers",
+            "faq-link": "FAQ",
+            "contact-support-link": "Contact Support",
+            "senior-citizens-helpline": "Senior Citizens Helpline:",
+            "national-emergency": "National Emergency:",
+            "police": "Police:",
+            "ambulance": "Ambulance:",
+            "fire-service": "Fire Service:"
+        },
+        hi: {
+            "lang-label": "भाषा:",
+            "font-label": "फ़ॉन्ट:",
+            "helpline-title": "हेल्पलाइन",
+            "emergency-heading": "आपातकालीन नंबर",
+            "faq-link": "सामान्य प्रश्न",
+            "contact-support-link": "सहायता से संपर्क करें",
+            "senior-citizens-helpline": "वरिष्ठ नागरिक हेल्पलाइन:",
+            "national-emergency": "राष्ट्रीय आपातकाल:",
+            "police": "पुलिस:",
+            "ambulance": "एंबुलेंस:",
+            "fire-service": "फायर सर्विस:"
+        },
+        te: {
+            "lang-label": "భాష:",
+            "font-label": "ఫాంట్:",
+            "helpline-title": "హెల్ప్‌లైన్",
+            "emergency-heading": "అత్యవసర నంబర్లు",
+            "faq-link": "FAQ",
+            "contact-support-link": "సపోర్ట్ ను సంప్రదించండి",
+            "senior-citizens-helpline": "సీనియర్ సిటిజన్స్ హెల్ప్‌లైన్:",
+            "national-emergency": "జాతీయ అత్యవసర:",
+            "police": "పోలీసు:",
+            "ambulance": "అంబులెన్స్:",
+            "fire-service": "అగ్నిమాపక సేవ:"
+        }
+    };
+
+    function goHome() {
+        window.location.href = "/SeniorCitizen/pages/Dashboard.html";
+    }
+
+    function changeLanguage(lang) {
+        localStorage.setItem('selectedLang', lang);
+        const t = translations[lang];
+        if (!t) return;
+        document.getElementById("lang-label").textContent = t["lang-label"];
+        document.getElementById("font-label").textContent = t["font-label"];
+        document.getElementById("helpline-title").textContent = t["helpline-title"];
+        document.getElementById("emergency-heading").textContent = t["emergency-heading"];
+        document.getElementById("faq-link").textContent = t["faq-link"];
+        document.getElementById("contact-link").textContent = t["contact-support-link"];
+        document.getElementById("senior-citizens-link").textContent = `${t["senior-citizens-helpline"]} 14567`;
+        document.getElementById("national-emergency-link").textContent = `${t["national-emergency"]} 112`;
+        document.getElementById("police-link").textContent = `${t["police"]} 100`;
+        document.getElementById("ambulance-link").textContent = `${t["ambulance"]} 102`;
+        document.getElementById("fire-service-link").textContent = `${t["fire-service"]} 101`;
+    }
+
+    function adjustFontSize(change) {
+        fontSize += change;
+        if (fontSize < 10) fontSize = 10;
+        if (fontSize > 40) fontSize = 40;
+        document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('selectedLang') || 'en';
+        changeLanguage(savedLang);
+    });
+</script>
+
+</body>
+</html>

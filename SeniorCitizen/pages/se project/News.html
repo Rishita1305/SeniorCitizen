@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      font-size: var(--base-font-size, 16px);
+    }
+    .tutorial-links a {
+      display: block;
+      margin: 5px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="home-icon" onclick="goHome()">🏠</div>
+    <div class="logo" id="logo-text">LOGO</div>
+    <div class="controls">
+      <div>
+        <span id="lang-label">Language:</span>
+        <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+        <button class="lang-btn" onclick="changeLanguage('hi')">हिन्दी</button>
+        <button class="lang-btn" onclick="changeLanguage('te')">తెలుగు</button>
+      </div>
+      <div>
+        <span id="font-label">Font:</span>
+        <button class="font-btn" onclick="adjustFontSize(2)">+</button>
+        <button class="font-btn" onclick="adjustFontSize(-2)">-</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-buttons tutorial-page">
+    <h2 class="tutorial-title" id="tutorial-title">How to Use</h2>
+    <div class="tutorial-links">
+      <a id="bbc" href="https://www.bbc.com/news" target="_blank">BBC News</a>
+      <a id="toi" href="https://timesofindia.indiatimes.com/" target="_blank">Times of India</a>
+      <a id="ndtv" href="https://www.ndtv.com/" target="_blank">NDTV News</a>
+      <a id="hindu" href="https://www.thehindu.com/" target="_blank">The Hindu</a>
+      <a id="news18" href="https://www.news18.com/" target="_blank">News18</a>
+    </div>
+  </main>
+
+  <script>
+    let fontSize = parseInt(localStorage.getItem('fontSize')) || 16;
+
+    function goHome() {
+      window.location.href = 'entertainment.html';
+    }
+
+    function adjustFontSize(change) {
+      fontSize += change;
+      if (fontSize < 10) fontSize = 10;
+      localStorage.setItem('fontSize', fontSize);
+      document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+
+      document.querySelectorAll('h2, a, span, button').forEach(el => {
+        el.style.fontSize = fontSize + 'px';
+      });
+    }
+
+    function changeLanguage(lang) {
+      localStorage.setItem('selectedLang', lang);
+
+      const translations = {
+        en: {
+          "logo": "LOGO",
+          "lang-label": "Language:",
+          "font-label": "Font:",
+          "tutorial-title": "How to Use",
+          "bbc": "BBC News",
+          "toi": "Times of India",
+          "ndtv": "NDTV News",
+          "hindu": "The Hindu",
+          "news18": "News18"
+        },
+        hi: {
+          "logo": "लोगो",
+          "lang-label": "भाषा:",
+          "font-label": "फ़ॉन्ट:",
+          "tutorial-title": "कैसे उपयोग करें",
+          "bbc": "बीबीसी समाचार",
+          "toi": "टाइम्स ऑफ़ इंडिया",
+          "ndtv": "एनडीटीवी समाचार",
+          "hindu": "द हिंदू",
+          "news18": "न्यूज़18"
+        },
+        te: {
+          "logo": "లోగో",
+          "lang-label": "భాష:",
+          "font-label": "ఫాంట్:",
+          "tutorial-title": "ఎలా ఉపయోగించాలి",
+          "bbc": "బీబీసీ వార్తలు",
+          "toi": "టైమ్స్ ఆఫ్ ఇండియా",
+          "ndtv": "ఎన్డీటీవీ వార్తలు",
+          "hindu": "ది హిందూ",
+          "news18": "న్యూస్18"
+        }
+      };
+
+      const t = translations[lang];
+      document.getElementById("logo-text").textContent = t["logo"];
+      document.getElementById("lang-label").textContent = t["lang-label"];
+      document.getElementById("font-label").textContent = t["font-label"];
+      document.getElementById("tutorial-title").textContent = t["tutorial-title"];
+      document.getElementById("bbc").textContent = t["bbc"];
+      document.getElementById("toi").textContent = t["toi"];
+      document.getElementById("ndtv").textContent = t["ndtv"];
+      document.getElementById("hindu").textContent = t["hindu"];
+      document.getElementById("news18").textContent = t["news18"];
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+      const savedLang = localStorage.getItem('selectedLang') || 'en';
+      changeLanguage(savedLang);
+      adjustFontSize(0); // Apply stored font size visually
+    });
+  </script>
+</body>
+</html>
